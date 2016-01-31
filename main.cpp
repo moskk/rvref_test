@@ -27,7 +27,7 @@ struct rref
     int* p = nullptr;
 };
 
-rref&& getrref()
+rref getrref()
 {
     rref ref;
     return std::move(ref);
