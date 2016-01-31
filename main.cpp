@@ -4,23 +4,24 @@ using namespace std;
 
 struct rref
 {
-    rref():p(new int[10]){}
-
-    rref(rref& other):rref()
+    rref():p(new int)
     {
-        copy(p, p + 10, other.p);
+        *p = 1;
+    }
+
+    rref(const rref& other):rref()
+    {
+        *p = *other.p;
     }
 
     rref(rref&& other)
-        : p(other.p)
     {
-        other.p = nullptr;
-        p[5] = 5;
+        std::swap(p, other.p);
     }
 
     ~rref()
     {
-        delete []p;
+        delete p;
     }
 
     int* p = nullptr;
@@ -34,7 +35,7 @@ rref&& getrref()
 
 int main()
 {
-    rref&& rr(getrref());
-    std::cout << rr.p[5] << std::endl;
+    rref rr(getrref());
+    std::cout << *rr.p << std::endl;
     return 0;
 }
